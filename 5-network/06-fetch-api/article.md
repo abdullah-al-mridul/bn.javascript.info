@@ -1,14 +1,13 @@
-
 # Fetch API
 
 আমরা এখন পর্যন্ত `fetch` সম্পর্কে অনেক কিছু জেনেছি।
 
-এবার চলুন বাকি API গুলো দেখে নেই, যাতে এটির সব ক্ষমতা কভার করতে পারি।
+এবার চলুন বাকি API গুলো দেখে নেই, যাতে এটির সব সক্ষমতা কভার করতে পারি।
 
 ```smart
-মনে রাখবেন: এই অপশনগুলোর বেশিরভাগ খুব কমই ব্যবহার করা হয়। আপনি এই চ্যাপ্টার ছাড়া দিয়েও `fetch` ভালোভাবে ব্যবহার করতে পারবেন।
+মনে রাখবেন: এই অপশনগুলোর বেশিরভাগ খুব কমই ব্যবহার করা হয়। আপনি এই অধ্যায়টি না পড়েও `fetch` ভালোভাবে ব্যবহার করতে পারবেন।
 
-তবুও, এটা ভালো যে আমরা জানি `fetch` কি কি করতে পারে, তাই যদি প্রয়োজন হয়, আমরা ফিরে এসে বিস্তারিত দেখতে পারবো।
+তবুও, এটা ভালো যে আমরা জানি `fetch` কি কি করতে পারে, তাহলে কখনো প্রয়োজন হলে, আমরা ফিরে এসে বিস্তারিত দেখতে পারবো।
 ```
 
 এখানে সব সম্ভাব্য `fetch` অপশনগুলোর সম্পূর্ণ তালিকা দেওয়া হলো তাদের ডিফল্ট ভ্যালু সহ (কমেন্টে বিকল্পগুলো দেখানো হয়েছে):
@@ -38,11 +37,11 @@ let promise = fetch(url, {
 
 অসাধারণ একটা তালিকা, তাই না?
 
-আমরা <info:fetch> চ্যাপ্টারে `method`, `headers` এবং `body` সম্পূর্ণভাবে কভার করেছি।
+আমরা <info:fetch> অধ্যায়ে `method`, `headers` এবং `body` সম্পূর্ণভাবে কভার করেছি।
 
 `signal` অপশন <info:fetch-abort> এ কভার করা হয়েছে।
 
-এবার চলুন বাকি ক্ষমতাগুলো এক্সপ্লোর করি।
+এবার চলুন বাকি সক্ষমতাগুলো এক্সপ্লোর করি।
 
 ## referrer, referrerPolicy
 
@@ -53,6 +52,7 @@ let promise = fetch(url, {
 **`referrer` অপশন আমাদের বর্তমান origin এর মধ্যে যেকোনো `Referer` সেট করতে বা সরিয়ে ফেলতে দেয়।**
 
 কোনো referer পাঠানোর জন্য, একটি খালি স্ট্রিং সেট করুন:
+
 ```js
 fetch('/page', {
 *!*
@@ -75,7 +75,7 @@ fetch('/page', {
 
 **`referrerPolicy` অপশন `Referer` এর জন্য সাধারণ নিয়ম সেট করে।**
 
-Request গুলো ৩ ধরনে ভাগ করা হয়:
+Request গুলো ৩ ধরনের হয়ে থাকেঃ
 
 1. একই origin এ request।
 2. অন্য origin এ request।
@@ -96,16 +96,16 @@ Request গুলো ৩ ধরনে ভাগ করা হয়:
 
 এখানে সব কম্বিনেশনের একটি টেবিল দেওয়া হলো:
 
-| ভ্যালু | একই origin এ | অন্য origin এ | HTTPS→HTTP |
-|-------|----------------|-------------------|------------|
-| `"no-referrer"` | - | - | - |
-| `"no-referrer-when-downgrade"` বা `""` (ডিফল্ট) | পুরো | পুরো | - |
-| `"origin"` | origin | origin | origin |
-| `"origin-when-cross-origin"` | পুরো | origin | origin |
-| `"same-origin"` | পুরো | - | - |
-| `"strict-origin"` | origin | origin | - |
-| `"strict-origin-when-cross-origin"` | পুরো | origin | - |
-| `"unsafe-url"` | পুরো | পুরো | পুরো |
+| ভ্যালু                                          | একই origin এ | অন্য origin এ | HTTPS→HTTP |
+| ----------------------------------------------- | ------------ | ------------- | ---------- |
+| `"no-referrer"`                                 | -            | -             | -          |
+| `"no-referrer-when-downgrade"` বা `""` (ডিফল্ট) | পুরো         | পুরো          | -          |
+| `"origin"`                                      | origin       | origin        | origin     |
+| `"origin-when-cross-origin"`                    | পুরো         | origin        | origin     |
+| `"same-origin"`                                 | পুরো         | -             | -          |
+| `"strict-origin"`                               | origin       | origin        | -          |
+| `"strict-origin-when-cross-origin"`             | পুরো         | origin        | -          |
+| `"unsafe-url"`                                  | পুরো         | পুরো          | পুরো       |
 
 ধরা যাক আমাদের একটি অ্যাডমিন জোন আছে যার URL structure সাইটের বাইরে থেকে জানা উচিত না।
 
@@ -116,9 +116,9 @@ Request গুলো ৩ ধরনে ভাগ করা হয়:
 আমরা যদি চাই অন্য ওয়েবসাইটগুলো শুধু origin অংশটা জানুক, URL-path না, তাহলে আমরা অপশনটি সেট করতে পারি:
 
 ```js
-fetch('https://another.com/page', {
+fetch("https://another.com/page", {
   // ...
-  referrerPolicy: "origin-when-cross-origin" // Referer: https://javascript.info
+  referrerPolicy: "origin-when-cross-origin", // Referer: https://javascript.info
 });
 ```
 
@@ -126,19 +126,20 @@ fetch('https://another.com/page', {
 
 ডিফল্ট বিহেভিয়ারের সাথে এর একমাত্র পার্থক্য হলো যে অন্য origin এ request এর জন্য `fetch` শুধু URL এর origin অংশটা পাঠায় (যেমন `https://javascript.info`, path ছাড়া)। আমাদের origin এ request এর জন্য আমরা এখনো পুরো `Referer` পাই (ডিবাগিংয়ের জন্য হয়তো কাজে লাগে)।
 
-```smart header="Referrer policy শুধু `fetch` এর জন্য না"
-[specification](https://w3c.github.io/webappsec-referrer-policy/) এ বর্ণিত Referrer policy, শুধু `fetch` এর জন্য না, বরং আরো গ্লোবাল।
+```smart header="Referrer policy শুধু `fetch`এর জন্য না"
+[specification](https://w3c.github.io/webappsec-referrer-policy/) এ বর্ণিত Referrer policy, শুধু`fetch` এর জন্য না, বরং আরো গ্লোবাল।
 
 বিশেষ করে, `Referrer-Policy` HTTP হেডার ব্যবহার করে পুরো পেজের জন্য ডিফল্ট পলিসি সেট করা সম্ভব, বা প্রতি-লিংকে, `<a rel="noreferrer">` দিয়ে।
-```
+
+````
 
 ## mode
 
-`mode` অপশনটি একটি সেফগার্ড যা ঘটাঘটি cross-origin request প্রতিরোধ করে:
+`mode` অপশনটি এমন একটি সুরক্ষা ব্যবস্থা যা মাঝে মাঝে cross-origin অনুরোধগুলিকে প্রতিরোধ করে:
 
 - **`"cors"`** -- ডিফল্ট, cross-origin request অনুমতি প্রাপ্ত, যেমন <info:fetch-crossorigin> এ বর্ণনা করা হয়েছে,
 - **`"same-origin"`** -- cross-origin request নিষিদ্ধ,
-- **`"no-cors"`** -- শুধু সাদামাটা cross-origin request অনুমতি প্রাপ্ত।
+- **`"no-cors"`** -- শুধু সাধারণ cross-origin request অনুমতি প্রাপ্ত।
 
 এই অপশনটি কাজে লাগে যখন `fetch` এর জন্য URL একটি 3rd-party থেকে আসে, এবং আমরা cross-origin ক্ষমতাগুলো সীমিত করার জন্য একটি "পাওয়ার অফ সুইচ" চাই।
 
@@ -187,7 +188,7 @@ fetch('https://another.com/page', {
 fetch('http://site.com/file', {
   integrity: 'sha256-abcdef'
 });
-```
+````
 
 তারপর `fetch` SHA-256 নিজে থেকে ক্যালকুলেট করবে এবং এটি আমাদের স্ট্রিং এর সাথে তুলনা করবে। মিসম্যাচ হলে, একটি এরর ট্রিগার হবে।
 
@@ -218,7 +219,7 @@ window.onunload = function() {
 এটির কিছু সীমাবদ্ধতা আছে:
 
 - আমরা মেগাবাইট পাঠাতে পারবো না: `keepalive` request এর জন্য body লিমিট ৬৪কেবি।
-    - যদি আমাদের ভিজিট সম্পর্কে অনেক পরিসংখ্যান সংগ্রহ করতে হয়, আমাদের এটি নিয়মিত প্যাকেটে পাঠাতে হবে, যাতে শেষ `onunload` request এর জন্য অনেক কিছু না থাকে।
-    - এই লিমিট সব `keepalive` request একসাথে প্রয়োগ হয়। অন্য কথায়, আমরা একাধিক `keepalive` request প্যারালেলে সম্পাদন করতে পারি, কিন্তু তাদের body length এর যোগফল ৬৪কেবি ছাড়তে পারবে না।
+  - যদি আমাদের ভিজিট সম্পর্কে অনেক পরিসংখ্যান সংগ্রহ করতে হয়, আমাদের এটি নিয়মিত প্যাকেটে পাঠাতে হবে, যাতে শেষ `onunload` request এর জন্য অনেক কিছু না থাকে।
+  - এই লিমিট সব `keepalive` request একসাথে প্রয়োগ হয়। অন্য কথায়, আমরা একাধিক `keepalive` request প্যারালেলে সম্পাদন করতে পারি, কিন্তু তাদের body length এর যোগফল ৬৪কেবি ছাড়তে পারবে না।
 - আমরা সার্ভার response হ্যান্ডেল করতে পারবো না যদি ডকুমেন্ট আনলোড হয়ে যায়। তাই আমাদের উদাহরণে `fetch` `keepalive` এর কারণে সফল হবে, কিন্তু পরবর্তী ফাংশনগুলো কাজ করবে না।
-    - বেশিরভাগ ক্ষেত্রে, যেমন পরিসংখ্যান পাঠানো, এটি কোনো সমস্যা না, কারণ সার্ভার শুধু ডেটা গ্রহণ করে এবং সাধারণত এমন request এর জন্য একটি খালি response পাঠায়।
+  - বেশিরভাগ ক্ষেত্রে, যেমন পরিসংখ্যান পাঠানো, এটি কোনো সমস্যা না, কারণ সার্ভার শুধু ডেটা গ্রহণ করে এবং সাধারণত এমন request এর জন্য একটি খালি response পাঠায়।
